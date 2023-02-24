@@ -7,7 +7,7 @@ from torchvision import transforms
 from torchvision.models import resnet18
 
 from models import VGG, SEResNet, SimpleCNN
-from utils.utils import determinism, getDevice, load, loadData, showData, train
+from utils import determinism, getDevice, load, loadData, showData, train
 
 seed = 1337
 # determinism(seed)
@@ -25,15 +25,17 @@ transList = [
     # transforms.RandomHorizontalFlip(),
     # transforms.RandomAutocontrast(),
     # transforms.RandomGrayscale(),
-    # transforms.RandomRotation(degrees=10),
+    # transforms.RandomRotation(degrees=15),
 ]
-
-trans = transforms.Compose(
-    [
-        transforms.RandomOrder(transList),
-        transforms.RandomChoice(transList),
-    ]
-)
+if len(transList) != 0:
+    trans = transforms.Compose(
+        [
+            transforms.RandomOrder(transList),
+            transforms.RandomChoice(transList),
+        ]
+    )
+else:
+    trans = None
 
 batch_size = 64
 
